@@ -1,9 +1,230 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-<meat>
-<head>
-<body>
-<h1>new file<h1>
-</body>
+	<head>
+		<meta charset="utf-8">
+
+		<script src="vue.js"></script>
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<li v-for="(rent, city) in averageRent ">
+					<b v-for="n in 3">{{n}}</b> {{ city }}的平均租金是 ${{ rent }}
+				</li>
+			</ul>
+		</div>
+		<script>
+			new Vue({
+	        el: '#app',
+	        data: {
+	          averageRent: {
+	            london: 1650,
+	            paris: 1730,
+	            NYC: 3680
+	          }
+	        }
+	      });
+	    </script>
+
+		<div id="app1">
+			<button :type="buttonType">Test button</button>
+		</div>
+		<script>
+			new Vue({
+		        el: '#app1',
+		        data: {
+		          buttonType: 'submit',
+				  
+		        }
+		      });
+		    </script>
+		<div id="app2">
+			<p>自从你打开这个页面，已经过了 {{ seconds }} 秒。</p>
+		</div>
+		<script>
+			new Vue({
+			        el: '#app2',
+			        data: {
+			          seconds: 0
+			        },
+			        created() {
+			          setInterval(() => {
+			            this.seconds++;
+			          }, 1000);
+			        }
+			      });
+			    </script>
+
+		<!--<div id="app3">
+			<input type="text" v-bind:value="inputText" value="initial value" v-model="inputText">
+			<p>当前状态:{{ statusFromId(inputText)}}</p>
+			<p>{{ inputText }}</p>
+		</div>
+		<div id="app6" v-html="youhtml">
+			<input type="text" v-bind:value="youhtml" value="initial value" v-model="youhtml">
+			
+		     <p>{{ youhtml }}</p>
+			 </div>
+		<script>
+			new Vue({
+				        el: '#app3',
+				        data: {
+				          inputText: ''
+						  
+				        },
+						methods:{
+							statusFromId(id){
+								const status=
+								({
+									0:'ASD',
+									1:'BSV',
+									2:'CSA',
+									3:'DSW'
+								})[id];
+								return status ||'未知状态'+id;
+							}
+						}
+				      });
+					  new Vue({
+					  	        el: '#app6',
+					  	        data: {
+					  	          
+					  			  youhtml:'<a href="#">#</a>'
+					  	        }
+					  	      });
+				    </script>
+		
+		-->
+		
+		<div id="app4">
+			<label><input type="radio" v-model="xuanze" value="一"> 一</label>
+			<label><input type="radio" v-model="xuanze" value="二"> 二</label>
+			<label><input type="radio" v-model="xuanze" value="三"> 三</label>
+			<p>选中的value值为 {{ xuanze }}</p>
+		</div>
+		<script>
+			new Vue({
+				el: '#app4',
+				data: {
+					xuanze: '一'
+				}
+			});
+		</script>
+		
+		   
+		 <div id="app7">
+		      <ul>
+		      <li v-for="dog in dogs">{{ dog }}</li>
+		      </ul>
+		    </div>
+		    <script>
+		      new Vue({
+		        el: '#app7',
+		        data: {
+		          dogs: ['Rex', 'Rover', 'Henrietta', 'Alan']
+		        }
+		      });
+		    </script>
+			    <div id="app8">
+			      <p>所有正数的总和是 {{ getPositiveNumbersSum() }}</p>
+			    </div>
+			    <script>
+			      new Vue({
+			        el: '#app8',
+			        data: {
+			          numbers: [-5, 0, 2, -1, 1, 5]
+			        },
+			        methods: {
+			          getPositiveNumbers() {
+			            // 注意我们使用的是this.numbers
+			            // 它直接指向data对象的numbers数组
+			            return this.numbers.filter((number) => number >= 0);
+			          },
+			          getPositiveNumbersSum() {
+			            return this.getPositiveNumbers().reduce((sum, val) => sum + val);
+			          }
+			        }
+			      });
+			    </script>
+				
+				<!--        <div id="app9">
+				          <p>Sum of numbers: {{numberTotal}}</p>
+				        </div>
+				        <script>
+				          new Vue({
+				            el: '#app9',
+				            data: {
+				              numbers: [5, 8, 3]
+				            },
+				            computed: {
+				              methods: {
+				                get() {
+				                  return numbers.reduce((sum, val) => sum + val);
+				                },
+				                set(newValue) {
+				                  const oldValue = this.numberTotal;
+				                  const difference = newValue - oldValue;
+				                  this.numbers.push(difference);
+				                }
+				              }
+				            }
+				          });
+				        </script>-->
+						<div id="computed_props">
+							KM:<input type="text" v-model="kilometers" />
+							M:<input type="text" v-model="meters" />
+						</div>
+						<p id="info"></p>
+						<script type="text/javascript">
+							var vm = new Vue({
+								el:'#computed_props',
+								data:{
+									kilometers:0,
+									meters:0
+								},
+								methods:{
+									
+								},
+								computed:{
+									
+								},
+								watch:{
+									kilometers:function(val){
+										this.kilometers =val;
+										this.meters =this.kilometers * 1000
+									},
+								    meters:function(val){
+										this.kilometers=val/1000;
+										this.meters=val;
+									}
+								}
+							});
+							 vm.$watch('kilometers', function (newValue, oldValue) {
+							    // 这个回调将在 vm.kilometers 改变后调用
+							    document.getElementById ("info").innerHTML = "修改前值为: " + oldValue + "，修改后值为: " + newValue;
+							});
+						</script>
+						
+						<div id = "app11">
+						    <p >计数器: {{ counter }}</p>
+						    <button @click = "counter++">点我</button>
+						</div>
+						<script type = "text/javascript">
+						var vm = new Vue({
+						    el: '#app11',
+						    data: {
+						        counter: 1
+						    }
+						});
+						vm.$watch('counter', function(nval, oval) {
+						    alert('计数器值的变化 :' + oval + ' 变为 ' + nval + '!');
+						});
+						setTimeout(
+						    function(){
+						        vm.counter += 20;
+						    },10000
+						);
+						</script>
+	</body>
 </html>
